@@ -1,15 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../providers/credential_provider.dart';
 
-class DashboardScreen extends StatelessWidget {
+import 'package:flutter_application_curd/src/providers/data_provider.dart';
+
+
+class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
 
   @override
+  _DashboardScreenState createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<DataProvider>(context, listen: false).fetchItems();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final dataProvider = Provider.of<DataProvider>(context);
+    final credentials = Provider.of<CredentialProvider>(context).credentials;
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Dashboard'),
+          automaticallyImplyLeading: false,
+          title: Text('Welcome, ${credentials?.username ?? 'User'}'),
+          // title: const Text('Dashboard'),
           bottom: const TabBar(
             tabs: [
               Tab(text: 'Submitted'),
@@ -17,35 +38,24 @@ class DashboardScreen extends StatelessWidget {
             ],
           ),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: [
-            ApplicationListScreen(status: 'Submitted'),
-            ApplicationListScreen(status: 'Draft'),
+            dataProvider.isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : ListView.builder(
+                    itemCount: dataProvider.items.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(dataProvider.items[index]['title']),
+                        subtitle: Text(dataProvider.items[index]['body']),
+                      );
+                    },
+                  ),
+            const Center(child: Text('Draft Screen')),
+
           ],
         ),
       ),
-    );
-  }
-}
-
-class ApplicationListScreen extends StatelessWidget {
-  final String status;
-
-  const ApplicationListScreen({super.key, required this.status});
-
-  @override
-  Widget build(BuildContext context) {
-    // Replace this list with actual data
-    final applications = List.generate(10, (index) => '$status Application ${index + 1}');
-
-    return ListView.builder(
-      itemCount: applications.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(applications[index]),
-          subtitle: Text('$status Application Details'),
-        );
-      },
     );
   }
 }

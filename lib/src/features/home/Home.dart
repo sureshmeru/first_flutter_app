@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../components/common_header.dart';
 import '../dashboard/dashboard.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -26,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const CommonHeader(title: 'Home'),
       body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,

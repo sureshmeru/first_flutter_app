@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_curd/src/provider/credential_provider.dart';
-import 'package:flutter_application_curd/src/routing/app_routes.dart';
 import 'package:provider/provider.dart';
+
+import 'package:flutter_application_curd/src/providers/credential_provider.dart';
+import 'package:flutter_application_curd/src/routing/app_routes.dart';
 
 class OTPScreen extends StatefulWidget {
   const OTPScreen({super.key});
@@ -62,6 +63,7 @@ class _OTPScreenState extends State<OTPScreen> {
                 ],
                 TextFormField(
                   controller: _otpController,
+                  autofocus: true,
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly], // Allow only numeric input
                   decoration: const InputDecoration(
