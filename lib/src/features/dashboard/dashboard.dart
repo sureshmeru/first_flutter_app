@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../../providers/credential_provider.dart';
-
 import 'package:flutter_application_curd/src/providers/data_provider.dart';
-
+import 'package:flutter_application_curd/src/components/pie_chart_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -29,8 +29,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text('Welcome, ${credentials?.username ?? 'User'}'),
-          // title: const Text('Dashboard'),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Welcome, ${credentials?.username ?? 'User'}'),
+              IconButton(
+                icon: const Icon(Icons.pie_chart),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const PieChartScreen()),
+                  );
+                },
+              ),
+            ],
+          ),
           bottom: const TabBar(
             tabs: [
               Tab(text: 'Submitted'),
@@ -52,8 +65,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     },
                   ),
             const Center(child: Text('Draft Screen')),
-
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const PieChartScreen()),
+            );
+          },
+          child: const Icon(Icons.pie_chart),
         ),
       ),
     );

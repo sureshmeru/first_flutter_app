@@ -21,7 +21,7 @@ class AppRoutes {
       case registrationScreen:
         return MaterialPageRoute(builder: (_) => const RegistrationScreen());
       default:
-        return MaterialPageRoute(builder: (_) => const RegistrationScreen());
+        return MaterialPageRoute(builder: (_) => const LoginScreen());
     }
   }
 }

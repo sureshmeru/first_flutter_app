@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData.dark(), // Dark theme
       themeMode: themeProvider.themeMode,
       onGenerateRoute: AppRoutes.generateRoute,
-      initialRoute: AppRoutes.loginScreen,
+      initialRoute: AppRoutes.registrationScreen,
     );
   }
 }
